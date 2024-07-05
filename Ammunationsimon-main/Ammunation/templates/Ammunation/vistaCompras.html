@@ -1,0 +1,42 @@
+{% extends "Ammunation/base.html" %}
+{% load static %}
+{% block contenido %}
+
+    <title>Mis compras</title>
+
+    <div class="container mt-3">
+        <h2>Mis compras</h2>
+        <a href="{% url 'perfildeusuario' %}" class="btn btn-dark my-4 mx-1">Volver a mi perfil</a>
+        <div class="table-responsive my-3">
+
+            <form method="get">
+                <div class="input-group mb-3 col-lg-6 col-md-8 col-12">
+                    <input type="text" class="form-control" name="q" placeholder="Buscar compra..." aria-label="Buscar" value="{{ request.GET.q }}">
+                </div>
+            </form>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="bg-dark text-white">Arma</th>
+                        <th class="bg-dark text-white">calibre</th>
+                        <th class="bg-dark text-white">Precio</th>
+                        <th class="bg-dark text-white">Cantidad</th>
+                        <th class="bg-dark text-white">Estado del pedido</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for venta in ventas %}
+                        <tr>
+                            <td>{{ venta.arma.nomb_arma }}</td>
+                            <td>{{ venta.arma.calibre }}</td>
+                            <td>$ {{ venta.total_venta }}</td>
+                            <td>{{ venta.cantidad }}</td>
+                            <td>{{ venta.estado }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock contenido %}

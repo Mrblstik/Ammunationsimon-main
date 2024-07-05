@@ -1,0 +1,81 @@
+{% extends "Ammunation/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block contenido %}
+
+<title>Carrito</title>
+<link href="{% static 'css/custom.css' %}" rel="stylesheet">
+<style>
+    .container {
+        background-color: #f5f5f5; /* Fondo más suave */
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        margin-top: 20px;
+    }
+    h2, h3 {
+        color: #424242; /* Gris más suave */
+    }
+    .table {
+        color: #424242;
+    }
+    .table-bordered th, .table-bordered td {
+        border: 1px solid #e0e0e0; /* Borde más suave */
+    }
+    th {
+        background-color: #007bff; /* Azul de Bootstrap */
+        color: #fff; /* Texto blanco */
+    }
+    .btn-primary, .btn-danger, .btn-dark, .btn-success {
+        border-radius: 4px; /* Bordes más redondeados */
+    }
+    input[type="number"] {
+        width: 80px; /* Caja de entrada más ancha */
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 5px 10px;
+    }
+</style>
+
+<div class="container">
+    <h2>Carrito de compras</h2>
+    <div class="table-responsive my-4">
+        <a href="{% url 'index' %}" class="btn btn-dark mb-3">Volver al inicio</a>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Stock disponible</th>
+                    <th>Precio unitario</th>
+                    <th>Total</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart.items.all %}
+                <tr>
+                    <td>{{ item.arma.nomb_arma }}</td>
+                    <td>
+                        <form method="post" action="{% url 'update_cart_item' item.id %}">
+                            {% csrf_token %}
+                            <input type="number" name="cantidad" value="{{ item.cantidad }}" min="1" max="{{ item.arma.stock }}">
+                            <button type="submit" class="btn btn-primary">Actualizar</button>
+                        </form>
+                    </td>
+                    <td>{{ item.arma.stock }}</td>
+                    <td>${{ item.precio_por_item }}</td>
+                    <td>${{ item.subtotal }}</td>
+                    <td>
+                        <a href="{% url 'remove_from_cart' item.id %}" class="btn btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h3 class="mt-4">Total a pagar: ${{ cart.total }}</h3>
+        <a href="{% url 'process_payment' %}" class="btn btn-success mt-2">Proceder al pago</a>
+    </div>
+</div>
+
+{% endblock contenido %}

@@ -1,0 +1,69 @@
+{% extends "Ammunation/base.html" %}
+{% load static %}
+{% block contenido %}
+
+<title>Ventas</title>
+{% if perms.Ammunation.view_venta %}
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Ventas</h2>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <a href="{% url 'adminGuns' %}" class="btn btn-dark">Volver</a>
+            <form method="get" class="w-50">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="q" placeholder="Buscar venta" aria-label="Buscar" value="{{ request.GET.q }}">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID venta</th>
+                        <th>ID arma</th>
+                        <th>Nombre arma</th>
+                        <th>Calibre</th>
+                        <th>Cantidad vendida</th>
+                        <th>Total venta</th>
+                        <th>Usuario</th>
+                        <th>Email usuario</th>
+                        <th>Estado</th>
+                        <th>Fecha venta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for venta in ventas %}
+                        <tr>
+                            <td>{{ venta.id }}</td>
+                            <td>{{ venta.arma.id }}</td>
+                            <td>{{ venta.arma.nomb_arma }}</td>
+                            <td>{{ venta.arma.calibre }}</td>
+                            <td>{{ venta.cantidad }}</td>
+                            <td>$ {{ venta.total_venta }}</td>
+                            <td>{% if venta.usuario %}{{ venta.usuario.username }}{% else %}Usuario eliminado{% endif %}</td>
+                            <td>{% if venta.usuario %}{{ venta.usuario.email }}{% else %}N/A{% endif %}</td>
+                            <td>
+                                <form method="post" action="">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="venta_id" value="{{ venta.id }}">
+                                    <select name="estado" class="form-control" onchange="this.form.submit()">
+                                        <option value="EN PREPARACIÓN" {% if venta.estado == 'EN PREPARACIÓN' %}selected{% endif %}>EN PREPARACIÓN</option>
+                                        <option value="PREPARADO" {% if venta.estado == 'PREPARADO' %}selected{% endif %}>PREPARADO</option>
+                                        <option value="ENVIADO" {% if venta.estado == 'ENVIADO' %}selected{% endif %}>ENVIADO</option>
+                                        <option value="ENTREGADO" {% if venta.estado == 'ENTREGADO' %}selected{% endif %}>ENTREGADO</option>
+                                    </select>
+                                </form>
+                            </td>
+                            <td>{{ venta.fecha }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endif %}
+
+{% endblock contenido %}

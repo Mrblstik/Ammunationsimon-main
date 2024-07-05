@@ -1,0 +1,57 @@
+{% extends "Ammunation/base.html" %}
+{%load static%}
+{% block contenido %}
+
+    <title>{{arma.nomb_arma}}</title>
+
+    <section class="py-5" style="background-color: #eee;">
+        <div class="container">
+            <div class="row gx-5">
+                <aside class="col-lg-6">
+                    <div class="border rounded-4 mb-3 d-flex justify-content-center">
+                        <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit"
+                            src="{{arma.arma_arma.url}}"}/>
+                    </div>
+
+                </aside>
+                <main class="col-lg-6">
+                    <div class="ps-lg-3">
+                        <h4 class="title text-dark">
+                            {{arma.nomb_arma}}
+                        </h4>
+                        <div class="d-flex flex-row my-3">
+                            <span class="text-muted"><i class="bi bi-basket-fill mx-1"></i>{{arma.stock}} productos</span>
+                            <span class="text-success ms-2 mx-3">En stock</span>
+                        </div>
+
+                        <div class="mb-3">
+                            <span class="h5">${{arma.precio}}</span>
+                            <span class="text-muted">/cada uno</span>
+                        </div>
+
+                        <p>
+                            {{arma.descripcion}}
+                        </p>
+
+                        <div class="row">
+                            <dt class="col-3">Género:</dt>
+                            <dd class="col-9">{{arma.categoria}}</dd>
+
+                            <dt class="col-3">calibre:</dt>
+                            <dd class="col-9">{{arma.calibre}}</dd>
+                        </div>
+
+                        <hr />
+                    
+
+                            <div class="col-md-8 col-6">
+                                <a href="{% url 'index' %}" class="btn btn-dark shadow-0">
+                                    Volver al inicio </a>
+                            </div>
+                        </div>
+                </main>
+            </div>
+        </div>
+    </section>
+    <script src='{% static "Ammunation/js/scripts.js" %}'></script>
+{% endblock contenido %}

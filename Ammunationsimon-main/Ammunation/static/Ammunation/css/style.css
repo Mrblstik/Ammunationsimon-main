@@ -1,0 +1,38 @@
+/* Estilos personalizados para la tabla de ventas */
+.table-hover tbody tr:hover {
+    background-color: #ff0000;
+}
+
+.table thead th {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.table tbody td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.container h2 {
+    color: #343a40;
+    font-weight: bold;
+}
+
+.btn-dark {
+    background-color: #0078f0;
+    border-color: #0080ff;
+}
+
+.input-group .form-control {
+    border-radius: 0.25rem;
+}
+
+.input-group .input-group-append .btn {
+    border-radius: 0.25rem;
+}
+
+select.form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+}

@@ -1,0 +1,47 @@
+{% extends "Ammunation/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block contenido %}
+
+<title>Iniciar sesión</title>
+
+<!-- LOGIN -->
+<section class="vh-100" style="background-color: #343a40;"> <!-- fondo gris oscuro -->
+    <div class="container py-5 h-150">
+        <div class="row d-flex justify-content-center align-items-center h-150">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card" style="background-color: #dc3545; border-radius: 1rem;"> <!-- tarjeta roja -->
+                    <div class="card-body p-5 text-center">
+
+                        <div class="mb-md-5 mt-md-4 pb-5">
+
+                            <h2 class="fw-bold mb-2 text-uppercase text-white">Iniciar sesión</h2>
+                            
+
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                {{ form|crispy }}
+
+                                <p class="small mb-5 pb-lg-2"><a class="text-light"
+                                        href="{% url 'olvidarcontraseña' %}">¿Olvidaste tu
+                                        contraseña?</a></p>
+
+                                <button class="btn btn-outline-light btn-lg px-5" type="submit">Iniciar sesión</button>
+                            </form>
+                        </div>
+
+                        <div>
+                            <p class="mb-0 text-light">¿No tienes cuenta? <a href="{% url 'register' %}"
+                                    class="text-white fw-bold">Regístrate</a>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src='{% static "Ammunation/js/scripts.js" %}'></script>
+{% endblock contenido %}

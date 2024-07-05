@@ -1,0 +1,58 @@
+{% extends "Ammunation/base.html" %}
+{% load static %}
+{% block contenido %}
+
+<title>Administrar usuarios</title>
+
+{% if perms.Ammunation.add_user %}
+   
+    <div class="container mt-3">
+        <p class="mb-0 display-5">Usuarios</p>
+        <div class="btn-group my-4">
+            <a href="{% url 'administrador' %}" class="btn btn-outline-dark mx-1">Administrar usuarios</a>
+            <a href="{% url 'adminGuns' %}" class="btn btn-outline-dark mx-1">Administrar armas</a>
+        </div>
+        <form class="form-inline mt-3">
+            <input type="text" class="form-control mb-2 mr-sm-2" id="adminBuscarUser" placeholder="Buscar usuario" method="GET" name="q">
+            <a href="{% url 'register' %}" class="btn btn-outline-dark mb-2">Crear usuario</a>
+        </form>
+        <div class="table-responsive my-3">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Nombre de usuario</th>
+                        <th>Correo electrónico</th>
+                        <th>Número de telefóno</th>
+                        <th>Ciudad</th>
+                        <th>Dirección</th>
+                        <th>Fecha de registro</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuario in usuarios %}
+                        <tr>
+                            <td>{{ usuario.id_usuario }}</td>
+                            <td>{{ usuario.first_name }}</td>
+                            <td>{{ usuario.last_name }}</td>
+                            <td>{{ usuario.username }}</td>
+                            <td>{{ usuario.email }}</td>
+                            <td>+569 {{ usuario.telefono }}</td>
+                            <td>{{ usuario.ciudad }}</td>
+                            <td>{{ usuario.direccion }}</td>
+                            <td>{{ usuario.date_joined }}</td>
+                            <td class="text-center">
+                                <a href="{% url 'editarusuario' usuario.id_usuario %}" class="btn btn-success btn-sm mx-1"><i></i> Editar</a>
+                                <a href="{% url 'deleteUser' usuario.id_usuario %}" class="btn btn-danger btn-sm mx-1"><i></i> Eliminar</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endif %}
+{% endblock contenido %}

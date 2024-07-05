@@ -1,0 +1,65 @@
+{% extends "Ammunation/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block contenido %}
+
+<title>Realizar venta</title>
+
+{% if perms.Ammunation.add_arma %}
+    <section class="vh-100" style="background-color: #222;">
+        <div class="container py-5 h-100 animate__animated animate__backInLeft">
+            <div class="row justify-content-center align-items-center h-100">
+                <div class="col-12 col-lg-9 col-xl-7">
+                    <div class="card shadow-2-strong card-registration" style="border-radius: 15px; background-color: #333; color: #fff;">
+                        <div class="card-body p-4 p-md-5">
+                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5" style="font-family: Arial, sans-serif; color: red;">Creacion de producto</h3>
+
+                            <form action="" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ form|crispy }}
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-outline-light btn-lg">Crear producto</button>
+                                </div> 
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src='{% static "Ammunation/js/scripts.js" %}'></script>
+{% endif %}
+
+<style>
+    body {
+        background-color: #222;
+        font-family: Arial, sans-serif;
+        color: #fff;
+    }
+    .card-registration {
+        background-color: #333;
+        color: #fff;
+        border-radius: 15px;
+    }
+    .card-registration h3 {
+        color: red;
+    }
+    .btn-outline-light {
+        color: #fff;
+        border-color: red;
+    }
+    .btn-outline-light:hover {
+        background-color: red;
+        color: #fff;
+    }
+    .form-control {
+        background-color: #444;
+        border: none;
+        color: #fff;
+    }
+    .form-control::placeholder {
+        color: #bbb;
+    }
+</style>
+
+{% endblock contenido %}

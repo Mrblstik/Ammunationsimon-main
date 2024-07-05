@@ -1,0 +1,35 @@
+{% extends "Ammunation/base.html" %}
+{% load static %}
+{% block contenido %}
+
+<title>Inicio</title>
+
+
+<section id="collection" class="p-5 bg-dark text-light">
+    <div class="container">
+        <div class="title text-center mb-4">
+            <h2 id="titulo" class="text-danger">TODO TIPO DE ARMAS</h2>
+        </div>
+
+       
+
+        <div class="collection-list mt-4 row">
+            {% for j in armas %}
+                <div class="col-md-6 col-lg-4 col-xl-3 p-2">
+                    <div class="collection-img position-relative mt-3">
+                        <a href="{% url 'descriptionGuns' j.id %}">
+                            <img src="{{j.foto_arma.url}}" class="w-100 img-thumbnail" style="border: 2px solid #444;">
+                        </a>
+                    </div>
+                    <div class="text-center mt-2">
+                        <p class="text-uppercase my-1 fw-bold text-danger">{{j.nomb_arma}}</p>
+                        <span class="fw-bold d-block text-danger">${{j.precio}}</span>
+                        <a href="{% url 'add_to_cart' j.id %}" class="btn btn-outline-light m-2">Agregar al carrito</a>
+                        <a href="{% url 'descriptionGuns' j.id %}" class="btn btn-dark m-2">Ver detalles</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+</section>
+{% endblock contenido %}
+
